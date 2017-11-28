@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.dao.TearcherGradeMapper">
+  <resultMap id="BaseResultMap" type="com.edu.model.TearcherGrade">
+    <id column="rank_id" jdbcType="INTEGER" property="rankId" />
+    <result column="rank_name" jdbcType="VARCHAR" property="rankName" />
+    <result column="reguler" jdbcType="REAL" property="reguler" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rank_id, rank_name, reguler
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tearcher_grade
+    where rank_id = #{rankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tearcher_grade
+    where rank_id = #{rankId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.edu.model.TearcherGrade">
+    insert into tearcher_grade (rank_id, rank_name, reguler
+      )
+    values (#{rankId,jdbcType=INTEGER}, #{rankName,jdbcType=VARCHAR}, #{reguler,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.model.TearcherGrade">
+    insert into tearcher_grade
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rankId != null">
+        rank_id,
+      </if>
+      <if test="rankName != null">
+        rank_name,
+      </if>
+      <if test="reguler != null">
+        reguler,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rankId != null">
+        #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="rankName != null">
+        #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="reguler != null">
+        #{reguler,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.model.TearcherGrade">
+    update tearcher_grade
+    <set>
+      <if test="rankName != null">
+        rank_name = #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="reguler != null">
+        reguler = #{reguler,jdbcType=REAL},
+      </if>
+    </set>
+    where rank_id = #{rankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.model.TearcherGrade">
+    update tearcher_grade
+    set rank_name = #{rankName,jdbcType=VARCHAR},
+      reguler = #{reguler,jdbcType=REAL}
+    where rank_id = #{rankId,jdbcType=INTEGER}
+  </update>
+</mapper>

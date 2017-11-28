@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="edu-web:war">
+    <output-path>D:/software2017.07.16/Tomcat/apache-tomcat-8.5.20/webapps</output-path>
+    <root id="archive" name="edu-web.war">
+      <element id="artifact" artifact-name="edu-web:war exploded" />
+    </root>
+  </artifact>
+</component>

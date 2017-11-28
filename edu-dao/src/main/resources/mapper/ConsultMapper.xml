@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.dao.ConsultMapper">
+  <resultMap id="BaseResultMap" type="com.edu.model.Consult">
+    <id column="con_id" jdbcType="INTEGER" property="conId" />
+    <result column="contype_id" jdbcType="INTEGER" property="contypeId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="con_content" jdbcType="VARCHAR" property="conContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    con_id, contype_id, title, upload_time, update_time, operator, con_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from consult
+    where con_id = #{conId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from consult
+    where con_id = #{conId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.edu.model.Consult">
+    insert into consult (con_id, contype_id, title, 
+      upload_time, update_time, operator, 
+      con_content)
+    values (#{conId,jdbcType=INTEGER}, #{contypeId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{uploadTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, 
+      #{conContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.model.Consult">
+    insert into consult
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="conId != null">
+        con_id,
+      </if>
+      <if test="contypeId != null">
+        contype_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="uploadTime != null">
+        upload_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="conContent != null">
+        con_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="conId != null">
+        #{conId,jdbcType=INTEGER},
+      </if>
+      <if test="contypeId != null">
+        #{contypeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null">
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="conContent != null">
+        #{conContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.model.Consult">
+    update consult
+    <set>
+      <if test="contypeId != null">
+        contype_id = #{contypeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null">
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="conContent != null">
+        con_content = #{conContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where con_id = #{conId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.model.Consult">
+    update consult
+    set contype_id = #{contypeId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      con_content = #{conContent,jdbcType=VARCHAR}
+    where con_id = #{conId,jdbcType=INTEGER}
+  </update>
+</mapper>

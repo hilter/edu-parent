@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.dao.WageRecordMapper">
+  <resultMap id="BaseResultMap" type="com.edu.model.WageRecord">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="bonus" jdbcType="REAL" property="bonus" />
+    <result column="checkout_time" jdbcType="TIMESTAMP" property="checkoutTime" />
+    <result column="ter_profit" jdbcType="REAL" property="terProfit" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_id, teacher_id, count, bonus, checkout_time, ter_profit
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wage_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wage_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.edu.model.WageRecord">
+    insert into wage_record (record_id, teacher_id, count, 
+      bonus, checkout_time, ter_profit
+      )
+    values (#{recordId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, 
+      #{bonus,jdbcType=REAL}, #{checkoutTime,jdbcType=TIMESTAMP}, #{terProfit,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.model.WageRecord">
+    insert into wage_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="teacherId != null">
+        teacher_id,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="bonus != null">
+        bonus,
+      </if>
+      <if test="checkoutTime != null">
+        checkout_time,
+      </if>
+      <if test="terProfit != null">
+        ter_profit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="bonus != null">
+        #{bonus,jdbcType=REAL},
+      </if>
+      <if test="checkoutTime != null">
+        #{checkoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terProfit != null">
+        #{terProfit,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.model.WageRecord">
+    update wage_record
+    <set>
+      <if test="teacherId != null">
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="bonus != null">
+        bonus = #{bonus,jdbcType=REAL},
+      </if>
+      <if test="checkoutTime != null">
+        checkout_time = #{checkoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terProfit != null">
+        ter_profit = #{terProfit,jdbcType=REAL},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.model.WageRecord">
+    update wage_record
+    set teacher_id = #{teacherId,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      bonus = #{bonus,jdbcType=REAL},
+      checkout_time = #{checkoutTime,jdbcType=TIMESTAMP},
+      ter_profit = #{terProfit,jdbcType=REAL}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+</mapper>

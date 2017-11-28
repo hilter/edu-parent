@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.dao.ShoppingCartMapper">
+  <resultMap id="BaseResultMap" type="com.edu.model.ShoppingCart">
+    <id column="cart_id" jdbcType="INTEGER" property="cartId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="tatol_price" jdbcType="REAL" property="tatolPrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cart_id, user_id, course_id, count, tatol_price, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_cart
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shopping_cart
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.edu.model.ShoppingCart">
+    insert into shopping_cart (cart_id, user_id, course_id, 
+      count, tatol_price, create_time
+      )
+    values (#{cartId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{tatolPrice,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.model.ShoppingCart">
+    insert into shopping_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cartId != null">
+        cart_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="tatolPrice != null">
+        tatol_price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cartId != null">
+        #{cartId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="tatolPrice != null">
+        #{tatolPrice,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.model.ShoppingCart">
+    update shopping_cart
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="tatolPrice != null">
+        tatol_price = #{tatolPrice,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.model.ShoppingCart">
+    update shopping_cart
+    set user_id = #{userId,jdbcType=INTEGER},
+      course_id = #{courseId,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      tatol_price = #{tatolPrice,jdbcType=REAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+</mapper>

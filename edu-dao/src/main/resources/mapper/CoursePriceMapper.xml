@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.dao.CoursePriceMapper">
+  <resultMap id="BaseResultMap" type="com.edu.model.CoursePrice">
+    <id column="price_id" jdbcType="INTEGER" property="priceId" />
+    <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
+    <result column="rank_id" jdbcType="INTEGER" property="rankId" />
+    <result column="original_price" jdbcType="REAL" property="originalPrice" />
+    <result column="favorable_price" jdbcType="REAL" property="favorablePrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    price_id, grade_id, rank_id, original_price, favorable_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course_price
+    where price_id = #{priceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course_price
+    where price_id = #{priceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.edu.model.CoursePrice">
+    insert into course_price (price_id, grade_id, rank_id, 
+      original_price, favorable_price)
+    values (#{priceId,jdbcType=INTEGER}, #{gradeId,jdbcType=INTEGER}, #{rankId,jdbcType=INTEGER}, 
+      #{originalPrice,jdbcType=REAL}, #{favorablePrice,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.model.CoursePrice">
+    insert into course_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="priceId != null">
+        price_id,
+      </if>
+      <if test="gradeId != null">
+        grade_id,
+      </if>
+      <if test="rankId != null">
+        rank_id,
+      </if>
+      <if test="originalPrice != null">
+        original_price,
+      </if>
+      <if test="favorablePrice != null">
+        favorable_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="priceId != null">
+        #{priceId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null">
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="rankId != null">
+        #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="originalPrice != null">
+        #{originalPrice,jdbcType=REAL},
+      </if>
+      <if test="favorablePrice != null">
+        #{favorablePrice,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.model.CoursePrice">
+    update course_price
+    <set>
+      <if test="gradeId != null">
+        grade_id = #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="rankId != null">
+        rank_id = #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="originalPrice != null">
+        original_price = #{originalPrice,jdbcType=REAL},
+      </if>
+      <if test="favorablePrice != null">
+        favorable_price = #{favorablePrice,jdbcType=REAL},
+      </if>
+    </set>
+    where price_id = #{priceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.model.CoursePrice">
+    update course_price
+    set grade_id = #{gradeId,jdbcType=INTEGER},
+      rank_id = #{rankId,jdbcType=INTEGER},
+      original_price = #{originalPrice,jdbcType=REAL},
+      favorable_price = #{favorablePrice,jdbcType=REAL}
+    where price_id = #{priceId,jdbcType=INTEGER}
+  </update>
+</mapper>

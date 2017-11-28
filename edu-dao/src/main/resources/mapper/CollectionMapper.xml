@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.dao.CollectionMapper">
+  <resultMap id="BaseResultMap" type="com.edu.model.Collection">
+    <id column="col_id" jdbcType="INTEGER" property="colId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="col_time" jdbcType="TIMESTAMP" property="colTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    col_id, course_id, user_id, col_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from collection
+    where col_id = #{colId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from collection
+    where col_id = #{colId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.edu.model.Collection">
+    insert into collection (col_id, course_id, user_id, 
+      col_time)
+    values (#{colId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{colTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.model.Collection">
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="colId != null">
+        col_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="colTime != null">
+        col_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="colId != null">
+        #{colId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="colTime != null">
+        #{colTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.model.Collection">
+    update collection
+    <set>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="colTime != null">
+        col_time = #{colTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where col_id = #{colId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.model.Collection">
+    update collection
+    set course_id = #{courseId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      col_time = #{colTime,jdbcType=TIMESTAMP}
+    where col_id = #{colId,jdbcType=INTEGER}
+  </update>
+</mapper>
